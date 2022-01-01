@@ -58,27 +58,20 @@ resilience4j.retry:
       maxAttempts: 3
       waitDuration: 10s
 
-resilience4j.bulkhead:
-  instances:
-    bookAPIService:
-      maxConcurrentCalls: 10
-    albumAPIService:
-      maxConcurrentCalls: 10
-
 resilience4j.thread-pool-bulkhead:
   instances:
     bookAPIService:
-      maxThreadPoolSize: 10
-      coreThreadPoolSize: 5
-      queueCapacity: 100
+      maxThreadPoolSize:
+      coreThreadPoolSize: 2
+      queueCapacity: 10
     albumAPIService:
-      maxThreadPoolSize: 10
-      coreThreadPoolSize: 5
-      queueCapacity: 100
+      maxThreadPoolSize: 5
+      coreThreadPoolSize: 2
+      queueCapacity: 10
 
 resilience4j.timelimiter:
   instances:
     bookAPIService:
-      timeoutDuration: 3s
+      timeoutDuration: 3s # set timeout
     albumAPIService:
-      timeoutDuration: 3s
+      timeoutDuration: 3s # set timeout
