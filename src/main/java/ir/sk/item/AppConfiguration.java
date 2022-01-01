@@ -1,5 +1,6 @@
 package ir.sk.item;
 
+import ir.sk.item.interceptor.UpstreamServiceMetricInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppConfiguration {
 
+    private final UpstreamServiceMetricInterceptor interceptor;
     private final RestTemplateBuilder restTemplateBuilder;
 
     @Bean
@@ -32,6 +35,7 @@ public class AppConfiguration {
                 List.of(MediaType.valueOf("text/javascript;charset=utf-8"),
                         MediaType.parseMediaType("application/json;charset=UTF-8")));
         restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
+        restTemplate.setInterceptors(Collections.singletonList(interceptor));
         return restTemplate;
     }
 }
