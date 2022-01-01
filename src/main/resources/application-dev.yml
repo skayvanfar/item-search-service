@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: itemsearchservice
+    google:
+      baseUrl: https://www.googleapis.com/books/v1/volumes
+      limit: 5
+    iTunes:
+      baseUrl: https://itunes.apple.com/search
+      limit: 5
+    timeout: 3000
+

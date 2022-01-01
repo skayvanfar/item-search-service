@@ -2,6 +2,7 @@ package ir.sk.item.dto.album;
 
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,4 +13,14 @@ import java.util.List;
 @Data
 public class AlbumResponse {
     private List<Album> results;
+
+    public List<Album> getResults() {
+        if (results != null)
+            return results;
+        else return Collections.EMPTY_LIST;
+    }
+
+    public void setResults(List<Album> results) {
+        this.results = results;
+    }
 }
