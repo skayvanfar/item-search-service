@@ -32,7 +32,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> search(String term) {
-        log.info("Starting finding items with term: []", term);
+        log.info("Starting finding items with term: {} " + term);
 
         CircuitBreaker BookAPICircuitBreaker = circuitBreakerFactory.create("bookAPIService");
         List<Book> bookList = BookAPICircuitBreaker.run(() -> bookClient.getBooks(term), throwable -> Collections.emptyList());
@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService {
         CircuitBreaker AlbumAPICircuitBreakerB = circuitBreakerFactory.create("albumAPIService");
         List<Album> albumList = AlbumAPICircuitBreakerB.run(() -> albumClient.getMusics(term), throwable -> Collections.emptyList());
 
-        log.info("Finish finding items with term: []", term);
+        log.info("Finish finding items with term: {}", term);
 
         return Stream.concat(bookList.stream().map(Item::valueOf), albumList.stream().map(Item::valueOf))
                 .sorted(Comparator.comparing(Item::getTitle))

@@ -49,7 +49,7 @@ public class UpstreamServiceMetricInterceptor implements ClientHttpRequestInterc
             // Making metric for Book upstream service response time in seconds using guage.
             meterRegistry.gauge(metricGoogleAPI, timeInSeconds);
 
-            log.debug("Book api response time in Seconds : []", timeInSeconds);
+            log.debug("Book api response time in Seconds : {}", timeInSeconds);
 
         } else if (request.getURI().toString().contains("https://itunes.apple.com/search")) {
 
@@ -57,7 +57,7 @@ public class UpstreamServiceMetricInterceptor implements ClientHttpRequestInterc
             // guage.
             meterRegistry.gauge(metricITuneAPI, timeInSeconds);
 
-            log.debug("Album api response time in Seconds : []", timeInSeconds);
+            log.debug("Album api response time in Seconds : {}", timeInSeconds);
         }
 
         return response;

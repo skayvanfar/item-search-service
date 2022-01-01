@@ -48,10 +48,10 @@ public class AlbumClientImpl implements AlbumClient {
             return albumResponse.getResults();
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             log.error("An http error was happened on get Albums from ITunes");
-            log.debug("Http Status: [] Body: []", e.getStatusCode(), e.getResponseBodyAsString());
+            log.debug("Http Status: {} Body: {}", e.getStatusCode(), e.getResponseBodyAsString());
             return Collections.emptyList();
         } catch (Exception e) {
-            log.error("An error was happened on get Albums from ITunes: []", e.getMessage());
+            log.error("An error was happened on get Albums from ITunes: {}", e.getMessage());
             return Collections.emptyList();
         }
     }

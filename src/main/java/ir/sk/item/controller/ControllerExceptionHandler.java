@@ -26,6 +26,6 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public void handleException(Exception ex, WebRequest request) {
-        log.error("Unknown Error happened in Rest Controller, Error message : []", ex.getMessage());
+        log.error("Unknown Error happened in Rest Controller, Error message : {}", ex.getMessage());
     }
 }

@@ -49,10 +49,10 @@ public class BookClientImpl implements BookClient {
             return bookResponse.getItems();
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             log.error("An http error was happened on get Books from Google");
-            log.debug("Http Status: [] Body: []", e.getStatusCode(), e.getResponseBodyAsString());
+            log.debug("Http Status: {} Body: {}", e.getStatusCode(), e.getResponseBodyAsString());
             return Collections.emptyList();
         } catch (Exception e) {
-            log.error("An error was happened on get Books from Google: []", e.getMessage());
+            log.error("An error was happened on get Books from Google: {}", e.getMessage());
             return Collections.emptyList();
         }
     }
