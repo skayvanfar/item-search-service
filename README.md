@@ -18,6 +18,14 @@ Please document how we can run it. Please shortly document your justification of
 
 --------------------------------------------------------------------------------------------------------------------------
 # Item-Search-service
+##
+Item Search API retrieves data from iTunes Store and Google Books.
+It uses resilience4j for the service to be resilient when the iTunes api and google api do not respond or respond with latency mort than 3 seconds(it is configurable)
+Errors (including timeouts) from any of the upstream services won't affect user's request. resilience4j also gives the concurrency to call each API.
+
+##suggestion
+another approach is By using Spring WebFlux and Spring WebClient.
+
 ## Software needed
 1.	Apache Maven (http://maven.apache.org).
 2.	Docker (http://docker.com).

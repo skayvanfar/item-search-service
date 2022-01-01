@@ -4,9 +4,11 @@ spring:
     google:
       baseUrl: https://www.googleapis.com/books/v1/volumes
       limit: 5
+      metric: book.api.in.seconds
     iTunes:
       baseUrl: https://itunes.apple.com/search
       limit: 5
+      metric: album.api.in.seconds
     timeout: 3000
 
 management:

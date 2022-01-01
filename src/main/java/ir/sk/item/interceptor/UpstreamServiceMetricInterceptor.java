@@ -3,6 +3,7 @@ package ir.sk.item.interceptor;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -23,6 +24,12 @@ public class UpstreamServiceMetricInterceptor implements ClientHttpRequestInterc
 
     private final MeterRegistry meterRegistry;
 
+    @Value("${spring.application.google.metric}")
+    private String metricGoogleAPI;
+
+    @Value("${spring.application.iTunes.metric}")
+    private String metricITuneAPI;
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
             throws IOException {
@@ -40,17 +47,17 @@ public class UpstreamServiceMetricInterceptor implements ClientHttpRequestInterc
         if (request.getURI().getPath().equals("/books/v1/volumes")) {
 
             // Making metric for Book upstream service response time in seconds using guage.
-            meterRegistry.gauge("book.api.in.seconds", timeInSeconds);
+            meterRegistry.gauge(metricGoogleAPI, timeInSeconds);
 
-            log.debug("Book api response time in Seconds : {}", timeInSeconds);
+            log.debug("Book api response time in Seconds : []", timeInSeconds);
 
         } else if (request.getURI().toString().contains("https://itunes.apple.com/search")) {
 
             // Making metric for Album upstream service response time in seconds using
             // guage.
-            meterRegistry.gauge("album.api.time.in.seconds", timeInSeconds);
+            meterRegistry.gauge(metricITuneAPI, timeInSeconds);
 
-            log.debug("Album api response time in Seconds : {}", timeInSeconds);
+            log.debug("Album api response time in Seconds : []", timeInSeconds);
         }
 
         return response;
