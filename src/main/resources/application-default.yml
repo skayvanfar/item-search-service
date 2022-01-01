@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: itemsearchservice
+    google:
+      baseUrl: https://www.googleapis.com/books/v1/volumes
+      limit: 5
+    iTunes:
+      baseUrl: https://itunes.apple.com/search
+      limit: 5
+    timeout: 3000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+
+#Setting the logging levels for the service
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    ir.sk.item: DEBUG
