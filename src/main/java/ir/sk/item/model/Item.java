@@ -26,6 +26,6 @@ public class Item {
     }
 
     public static Item valueOf(Album album) {
-        return new Item(album.getTrackName(), List.of(album.getArtistName()), ItemType.ALBUM);
+        return new Item(album.getTrackName()==null ? "" : album.getTrackName(), List.of(album.getArtistName()), ItemType.ALBUM);
     }
 }

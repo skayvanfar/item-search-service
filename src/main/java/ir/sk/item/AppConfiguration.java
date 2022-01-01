@@ -38,4 +38,5 @@ public class AppConfiguration {
         restTemplate.setInterceptors(Collections.singletonList(interceptor));
         return restTemplate;
     }
+
 }

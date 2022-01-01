@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.Objects;
+
 /**
  * Component to implement global exception handling and customize the response based on the exception type.
  *
@@ -25,7 +27,7 @@ public class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public void handleException(Exception ex, WebRequest request) {
-        log.error("Unknown Error happened in Rest Controller, Error message : {}", ex.getMessage());
+    public void handleException(Exception ex) {
+        log.error("Unknown Error happened in Rest Controller", ex);
     }
 }
