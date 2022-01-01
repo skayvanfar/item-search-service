@@ -1,5 +1,7 @@
 package ir.sk.item.model;
 
+import ir.sk.item.dto.album.Album;
+import ir.sk.item.dto.book.Book;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +17,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-
-    private List<String> authors;
-
     private String title;
+    private List<String> authors;
+    private ItemType itemType;
 
-    private ItemType mediaType;
+    public static Item valueOf(Book book) {
+        return new Item(book.getVolumeInfo().getTitle(), book.getVolumeInfo().getAuthors(), ItemType.BOOK);
+    }
+
+    public static Item valueOf(Album album) {
+        return new Item(album.getTrackName(), List.of(album.getArtistName()), ItemType.ALBUM);
+    }
 }
