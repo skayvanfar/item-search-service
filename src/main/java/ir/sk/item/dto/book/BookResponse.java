@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * the Response object of Book upstream service.
@@ -15,9 +16,7 @@ public class BookResponse {
     private List<Book> items;
 
     public List<Book> getItems() {
-        if (items != null)
-            return items;
-        else return Collections.EMPTY_LIST;
+        return Optional.ofNullable(items).orElse(Collections.emptyList());
     }
 
     public void setItems(List<Book> items) {

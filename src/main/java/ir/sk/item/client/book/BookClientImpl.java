@@ -46,7 +46,7 @@ public class BookClientImpl implements BookClient {
 
             BookResponse bookResponse = restTemplate.getForEntity(urlBuilder.build().toUri().toString(), BookResponse.class).getBody();
             Objects.requireNonNull(bookResponse);
-            return Optional.ofNullable(bookResponse.getItems()).orElse(Collections.emptyList());
+            return bookResponse.getItems();
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             log.error("An http error was happened on get Books from Google");
             log.debug("Http Status: {} Body: {}", e.getStatusCode(), e.getResponseBodyAsString());

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * the Response object of Album upstream service.
@@ -15,9 +16,7 @@ public class AlbumResponse {
     private List<Album> results;
 
     public List<Album> getResults() {
-        if (results != null)
-            return results;
-        else return Collections.EMPTY_LIST;
+        return Optional.ofNullable(results).orElse(Collections.emptyList());
     }
 
     public void setResults(List<Album> results) {

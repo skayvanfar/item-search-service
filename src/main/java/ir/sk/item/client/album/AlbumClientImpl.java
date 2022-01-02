@@ -47,7 +47,7 @@ public class AlbumClientImpl implements AlbumClient {
 
             AlbumResponse albumResponse = restTemplate.getForEntity(urlBuilder.build().toUri().toString(), AlbumResponse.class).getBody();
             Objects.requireNonNull(albumResponse);
-            return Optional.ofNullable(albumResponse.getResults()).orElse(Collections.emptyList());
+            return albumResponse.getResults();
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             log.error("An http error was happened on get Albums from ITunes");
             log.debug("Http Status: {} Body: {}", e.getStatusCode(), e.getResponseBodyAsString());
