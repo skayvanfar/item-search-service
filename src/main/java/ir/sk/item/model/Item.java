@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by sad.kayvanfar on 12/31/2021
@@ -26,6 +27,8 @@ public class Item {
     }
 
     public static Item valueOf(Album album) {
-        return new Item(album.getTrackName()==null ? "" : album.getTrackName(), List.of(album.getArtistName()), ItemType.ALBUM);
+        String trackName = Optional.ofNullable(album.getTrackName()).orElse("");
+        String title =  Optional.ofNullable(album.getArtistName()).orElse("");
+        return new Item(trackName, List.of(title), ItemType.ALBUM);
     }
 }
