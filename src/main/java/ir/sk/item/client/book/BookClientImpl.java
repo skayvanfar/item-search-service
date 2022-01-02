@@ -14,8 +14,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by sad.kayvanfar on 12/31/2021
@@ -32,7 +31,7 @@ public class BookClientImpl implements BookClient {
     @Value("${spring.application.google.baseUrl}")
     private String bookRequestUrl;
 
-    @Value("${spring.application.google.limit:5}")
+    @Value("${MAX_RESULTS:5}")
     private int maxResults;
 
     private final RestTemplate restTemplate;
@@ -46,7 +45,8 @@ public class BookClientImpl implements BookClient {
                     .queryParam("fields", "items(volumeInfo(title,authors))");
 
             BookResponse bookResponse = restTemplate.getForEntity(urlBuilder.build().toUri().toString(), BookResponse.class).getBody();
-            return bookResponse.getItems();
+            Objects.requireNonNull(bookResponse);
+            return Optional.ofNullable(bookResponse.getItems()).orElse(Collections.emptyList());
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             log.error("An http error was happened on get Books from Google");
             log.debug("Http Status: {} Body: {}", e.getStatusCode(), e.getResponseBodyAsString());

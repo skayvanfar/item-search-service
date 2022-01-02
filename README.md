@@ -20,11 +20,15 @@ Please document how we can run it. Please shortly document your justification of
 # Item-Search-service
 ##
 Item Search API retrieves data from iTunes Store and Google Books.
-It uses resilience4j for the service to be resilient when the iTunes api and google api do not respond or respond with latency mort than 3 seconds(it is configurable)
+It uses resilience4j for the service to be resilient when the iTunes api and google api do not respond or respond with latency more than 3 seconds(it is configurable)
 Errors (including timeouts) from any of the upstream services won't affect user's request. resilience4j also gives the concurrency to call each API.
+to adjust the max result of search for api calls set the environment variable MAX_RESULTS or pass via parameter -DMAX_RESULTS=5.
+they also defined in docker-compose.yml files.
 
-##suggestion
-another approach is By using Spring WebFlux and Spring WebClient.
+##Other options for Resiliency and Concurrency
+Another approach is by using Spring WebFlux and Spring WebClient.
+
+Another approach is by using ExecutorService to call each API and Future.get(3, TimeUnit.SECONDS) for fetching and Resiliency
 
 ## Software needed
 1.	Apache Maven (http://maven.apache.org).
@@ -49,7 +53,7 @@ change to the directory containing  your project source code.  Issue the followi
 
 If everything starts correctly you should see a bunch of spring boot information fly by on standard out.  At this point all of the services needed for the project code will be running.
 
-## how to call API
+## How to call API
 The Application exposed a REST Endpoint for searching Albums and Books
 
 API Request: Http Method : GET
@@ -73,6 +77,6 @@ http://localhost:8080/actuator/metrics/book.api.in.seconds
 
 http://localhost:8080/actuator/metrics/album.api.in.seconds
 
-## profile
+## Profile
 Application used spring.profiles.active Environment property
 By default dev profile is active. 

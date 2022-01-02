@@ -16,6 +16,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by sad.kayvanfar on 12/31/2021
@@ -31,7 +33,7 @@ public class AlbumClientImpl implements AlbumClient {
     @Value("${spring.application.iTunes.baseUrl}")
     private String albumRequestUrl;
 
-    @Value("${spring.application.iTunes.limit:5}")
+    @Value("${MAX_RESULTS:5}")
     private int maxResults;
 
     private final RestTemplate restTemplate;
@@ -44,8 +46,8 @@ public class AlbumClientImpl implements AlbumClient {
                     .queryParam(QUERY_PARAM_LIMIT, maxResults);
 
             AlbumResponse albumResponse = restTemplate.getForEntity(urlBuilder.build().toUri().toString(), AlbumResponse.class).getBody();
-
-            return albumResponse.getResults();
+            Objects.requireNonNull(albumResponse);
+            return Optional.ofNullable(albumResponse.getResults()).orElse(Collections.emptyList());
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             log.error("An http error was happened on get Albums from ITunes");
             log.debug("Http Status: {} Body: {}", e.getStatusCode(), e.getResponseBodyAsString());
